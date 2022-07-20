@@ -104,17 +104,18 @@ switch ($requestingPage) {
    break;
 
    case "makeapost":
-      $userId = $_SESSION['id'];
-      $useremail = $_SESSION['email'];
-      $postText = $processRequest->processInputData($_POST["textcontent"]);
+      if ($_SERVER["REQUEST_METHOD"] == "POST") {
+         $userId = $_SESSION['id'];
+         $useremail = $_SESSION['email'];
+         $postText = $processRequest->processInputData($_POST["textcontent"]);
 
-      $insertResponse = $insertData->setPost($userId,$useremail,$postText,'image',$time,$date);
-      if ($insertResponse['status']) {
-         $response = array('status'=>1,'input'=>"details",'message'=>"You have successfully make a post");
-      }else {
-         $response = array('status'=>0, 'input'=>"details", 'message'=>$insertResponse['message']);
+         $insertResponse = $insertData->setPost($userId,$useremail,$postText,'image',$time,$date);
+         if ($insertResponse['status']) {
+            $response = array('status'=>1,'input'=>"details",'message'=>"Upload of post was successful...");
+         }else {
+            $response = array('status'=>0, 'input'=>"details", 'message'=>$insertResponse['message']);
+         }
       }
-      
    break;
    
    default:

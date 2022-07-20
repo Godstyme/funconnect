@@ -2,7 +2,7 @@
  session_start();
  require_once 'config/config.php';
 //  if (empty(($_SESSION['email'])) && $_SESSION['id']  == null || !isset($_SESSION['email'])) {
-	if (!isset($_SESSION['email']) && !isset($_SESSION['id'])){
+	if (!isset($_SESSION['email']) && !isset($_SESSION['id'])) {
 		echo '
 		<script>
 			window.location = "logout.php";
@@ -67,7 +67,7 @@
 					<a href="" class="navbar-brand brand fw-bolder fs-3 h1">FUNCONNECT</a>
 				</span>
 				<span class="d-none d-sm-inline mx-1">
-					<?php echo "<div class='text-white text-center'>". $_SESSION['id']."</div>";?>
+					<?php echo "<div class='text-white text-center'>".$_SESSION['email']."</div>";?>
 				</span>
 										<a href="logout.php">Logout</a>
 			  	<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvasLg" aria-controls="navbarOffcanvasLg">
