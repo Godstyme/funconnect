@@ -1,0 +1,7 @@
+Options All -Indexes
+RewriteEngine On
+
+RewriteRule ^home/?$   index.php
+RewriteRule ^registration/?$   registration.php
+RewriteRule ^login/?$   login.php
+
