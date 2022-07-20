@@ -85,7 +85,7 @@ $(document).ready(function($) {
             if(response.status === 0){
                $("#errorMSG").addClass('alert alert-danger');
                $("#errorMSG").html(response.message);
-               console.log(response.message)
+               // console.log(response.message)
             } else if (response.status === 1) {
                $("#errorMSG").removeClass('alert alert-danger');
                $("#errorMSG").addClass('alert alert-success');

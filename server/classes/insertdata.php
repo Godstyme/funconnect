@@ -3,11 +3,11 @@ require_once 'dbconnection.php';
 
 class InsertData extends DbConnection {
    
-    public function registerUsers($firstName,$lastName,$email,$phone,$password,$time,$date) {
-        $sql = "INSERT INTO users(firstname,lastname,email,phone,password,time,date) VALUES(?,?,?,?,?,?,?)";
+    public function registerUsers($firstName,$lastName,$email,$username,$phone,$password,$time,$date) {
+        $sql = "INSERT INTO users(firstname,lastname,email,username,phone,password,time,date) VALUES(?,?,?,?,?,?,?,?)";
 
         $query = $this->connection->prepare($sql);
-        $exec = $query->execute([$firstName,$lastName,$email,$phone,$password,$time,$date]);
+        $exec = $query->execute([$firstName,$lastName,$email,$username,$phone,$password,$time,$date]);
         
         if ($query->errorCode() == 0) {
             return array('status'=>1);

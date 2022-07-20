@@ -68,4 +68,20 @@ a.active > .color-icon.active{
 	background: #2B3144 !important;
 	min-width: 100%;
 }
+hr {
+	border: none;
+	border-top: 3px double #333;
+	color: red;
+	overflow: visible;
+	text-align: center;
+	height: 5px;
+}
+
+hr:after {
+	background: #fff;
+	content: '§';
+	padding: 0 4px;
+	position: relative;
+	top: -13px;
+}
 /*http://preview.themeforest.net/item/sociala-social-network-app-html-template/full_screen_preview/31502548?_ga=2.107049154.1979234110.1657134203-1381613649.1657134203*/

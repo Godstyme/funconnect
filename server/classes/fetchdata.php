@@ -41,7 +41,7 @@ class FetchData extends DbConnection {
 
 
   public function fetchPostContent() {
-   $sql = "SELECT * FROM posts ORDER BY id DESC LIMIT 3";
+   $sql = "SELECT * FROM posts ORDER BY id DESC LIMIT 5";
    $query = $this->connection->prepare($sql);
    $exec = $query->execute([]);
    if($query->errorCode() == 0){
@@ -57,10 +57,27 @@ class FetchData extends DbConnection {
 }
 
 
+public function getUserUsername(){
+   $sql = "SELECT useremail FROM posts WHERE useremail = '{$_SESSION['email']}'";
+   $qry = $this->connection->prepare($sql);
+   $exec = $qry->execute(array());
+
+   if ($qry->errorCode() == 0) {
+      if ($qry->rowCount() > 0) {
+            $data = $qry->fetchAll(PDO::FETCH_ASSOC);
+            return array('status'=>1,'data'=>$data);
+      } else {
+            return 0;
+      }
+   } else {
+      return array('status' => 0, 'message' => $qry->errorInfo());
+   }
+}
+
 
 }
-// $data = new FetchData;
-// echo json_encode($data->userLogin('godstimeonyibe2@gmail.com'));
+$data = new FetchData;
+// echo json_encode($data->getUserUsername());
 
 
 

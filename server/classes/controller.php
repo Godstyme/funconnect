@@ -8,8 +8,8 @@ $processRequest = new ProcessRequest;
 $insertData = new InsertData;
 $fetchData = new FetchData;
 
-$time = date('h:i:s  a');
-$date = date('d-m-Y');
+$time = date('H:i:s');
+$date = date('Y-m-d');
 $requestingPage = stripslashes($_GET['_mode']);
 
 switch ($requestingPage) {   
@@ -44,10 +44,12 @@ switch ($requestingPage) {
             $tblName = "users";
             $fetchResponse = $fetchData->registerCheckUserEmail($tblName,$email);
             if (is_array($fetchResponse)) {
-               if(isset($fetchResponse['status']) && $fetchResponse['status'] ==1){
-                  $response = array('status'=>0,'input'=>"details",'message'=>"A User already exist with this email.");
+               if(isset($fetchResponse['status']) && $fetchResponse['status'] == 1){
+                  $response = array('status'=>0,'input'=>"details",'message'=>"A User already exist with this email.");                  
                } else {
-                  $insertResponse = $insertData->registerUsers($fName,$lName,$email,$phone,$password,$time,$date);
+                  $emailSplit = explode("@",$email);
+                  $username = $emailSplit[0];
+                  $insertResponse = $insertData->registerUsers($fName,$lName,$email,$username,$phone,$password,$time,$date);
                   if ($insertResponse['status']) {
                      $response = array('status'=>1,'input'=>"details",'message'=>"User Registration Successful...");
                   }else {

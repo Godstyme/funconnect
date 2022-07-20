@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/header.php';
 require_once 'server/classes/fetchdata.php';
+require_once 'server/helper/timeago.php';
 $fetchData = new FetchData;
 ?>
 <main>
@@ -58,8 +59,23 @@ $fetchData = new FetchData;
                   </div>
                </div>
                <div class="post-wrapper">
-                  <div class="post-card py-4">
-                     <div class="card text-light" id="card-bg">
+                  <div class="post-card py-4 text-light">
+                     <?php 
+                        $fetchResponse = $fetchData->fetchPostContent();
+                        if(is_array($fetchResponse)){
+                           if(isset($fetchResponse['status'])){
+                              '<div class="alert alert-danger">'.print_r($fetchResponse['message']).'</div>';
+                           }else {
+                              foreach($fetchResponse as $row){
+                                 $time = $row['time'];
+                                 $date = $row['date'];
+                                 $dateTime = $date.' '.$time;
+                                 $timeAgo =strtotime($dateTime);
+                                 // var_dump($dateTime);
+                           
+                        ?>
+                     <hr class="my-2">
+                     <div class="card text-light my-3" id="card-bg">
                         <div class="card-body">
                            <!-- <img src="..." class="card-img-top" alt="..."> -->
                            <div class="card-title d-flex flex-row mb-3 flex-md-row">
@@ -67,28 +83,27 @@ $fetchData = new FetchData;
                                  <img src="assets/imgs/dp.png" alt="user" class="rounded-circle  mx-auto d-block img-fluid">
                               </div>
                               <div class="px-4 w-75 mx-2 d-flex flex-column">
-                                 <div class="">Godstime</div>
-                                 <div class="text-secondary" style="font-size:0.9em">2 Hours Ago</div>
+                                 <div class=""> <span style="color:gray;">@</span> Godstime</div>
+                                 <div class="text-secondary" style="font-size:0.9em">
+                                    <?php  echo getTimeAgo($timeAgo);    ?>
+                                 </div>
                               </div>
                            </div>
-                           <?php 
-                           $fetchResponse = $fetchData->fetchPostContent();
-                           if(is_array($fetchResponse)){
-                              if(isset($fetchResponse['status'])){
-                                 '<div class="alert alert-danger">'.print_r($fetchResponse['message']).'</div>';
-                              }else {
-                                 foreach($fetchResponse as $row){
-                              }
-                           ?>
-                           <p>
-                           <?php echo $row['post_content_text']?>
+                           
+                           
+                           <p class="card-subtitle mb-2 text-white text-break" style="font-size:0.9em; text-align:justify;">
+
+                              <?php
+                                 $string = $row['post_content_text'];
+                                 if (strlen($string) > 100) {
+                                    echo substr($string, 0, 100).'... <a href="page.php">Read More</a>';
+                                 } else {
+                                    echo substr($string, 0, strlen($string));
+                                 }
+                                 
+                              ?>
                            </p>
-                           <?php }} ?>
-                           <p class="card-subtitle mb-2 text-white text-break" style="font-size:0.9em; text-align:justify;">Lorem Ipsum is simply dummy text of the printing and typesetting
-                               industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                                but also the leap into electronic typesetting, remaining essentially unchanged.
-                                <a href="#" class="text-primary ms-2">See more</a>
-                           </p>
+                           
                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                            <div class="d-flex flex-row">
                               <a href="#" class="nav-link">
@@ -106,6 +121,7 @@ $fetchData = new FetchData;
                               </div>
                         </div>
                      </div>
+                     <?php }}} ?>
                   </div>
                </div>
             </div>
