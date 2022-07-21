@@ -4,4 +4,5 @@ RewriteEngine On
 RewriteRule ^home/?$   index.php
 RewriteRule ^registration/?$   registration.php
 RewriteRule ^login/?$   login.php
+RewriteRule ^profile/?$   profile.php
 

@@ -86,10 +86,12 @@ switch ($requestingPage) {
                         else if($fetchResponse['status'] == 1){
                            $checkPass = $fetchResponse['password'];
                            $id = $fetchResponse['id'];
+                           // $username = $fetchResponse['username'];
                            if (password_verify($password, $checkPass)) {
                               $response = array('status'=>1, 'input'=>"details",'message'=>"Login Successful, Redirecting to your homepage...");
                               $_SESSION['email'] = $email;
                               $_SESSION['id'] = $id;
+                              $_SESSION['username'] = $username;
                            }
                            else{
                               $response =array('status'=>0, 'input'=>"details",'message'=>"username or password is incorrect");
@@ -108,10 +110,10 @@ switch ($requestingPage) {
    case "makeapost":
       if ($_SERVER["REQUEST_METHOD"] == "POST") {
          $userId = $_SESSION['id'];
-         $useremail = $_SESSION['email'];
+         $email = $_SESSION['email'];
          $postText = $processRequest->processInputData($_POST["textcontent"]);
 
-         $insertResponse = $insertData->setPost($userId,$useremail,$postText,'image',$time,$date);
+         $insertResponse = $insertData->setPost($userId,$email,$postText,'image',$time,$date);
          if ($insertResponse['status']) {
             $response = array('status'=>1,'input'=>"details",'message'=>"Upload of post was successful...");
          }else {

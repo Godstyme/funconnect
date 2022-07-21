@@ -120,9 +120,18 @@ function timeAgo($time_ago){
    }
    $curenttime="2022-07-20 20:23:19";
    $time_ago =strtotime($curenttime);
-   echo timeAgo($time_ago);   
-var_dump($time_ago);
-echo time();
+   echo timeAgo($time_ago);
+   echo '<br>';
+
+   $str = 'If a creature with damage transfer is grappling a target, and the grappled target hits the creature, does the target still take half the damage? Is &quot;Occupation Japan&quot; idiomatic? (instead of occupation of Japan, occupied Japan or Occupation-era Japan)';
+   if (strlen($str) > 100) {
+      // echo mb_substr($str, 0, 100).'... <a href="#" onclick="$(#myId").show();">Read More</a>';
+      echo mb_substr($str, 0, 100).'... <button  id = "buttonLogin">Read More</button>';
+      // echo '<div style="display:none;" id="myId">'. $str .'</div>';                                 
+      
+   } else {
+      echo substr($str, 0, strlen($str));
+   }
 
 
 

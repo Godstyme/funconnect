@@ -1,7 +1,7 @@
 <?php
 require_once 'includes/header.php';
 require_once 'server/classes/fetchdata.php';
-require_once 'server/helper/timeago.php';
+require_once 'server/helper/helper.php';
 $fetchData = new FetchData;
 ?>
 <main>
@@ -95,8 +95,20 @@ $fetchData = new FetchData;
 
                               <?php
                                  $string = $row['post_content_text'];
+                              
                                  if (strlen($string) > 100) {
-                                    echo substr($string, 0, 100).'... <a href="page.php">Read More</a>';
+                                    $lessContent = mb_substr($string, 0, 100); 
+                                    echo '<div>'
+                                    .  $lessContent .
+                                    "<a  id='readMore'>Read More</a>".
+                                    '</div>'; 
+                                    
+                                    echo '<div style="display:none;" id="myId">'
+                                    . $string .
+                                    "<a  id='readLess'>Read Less</a>".
+                                    '</div>';   
+                                    // echo "<a href='#' id='readMore'>Read Less</a>";                              
+                                    
                                  } else {
                                     echo substr($string, 0, strlen($string));
                                  }
@@ -147,3 +159,11 @@ $fetchData = new FetchData;
 <?php 
 require_once 'includes/footer.php';
 ?>
+<script>
+$("#readMore").click(function(){
+   $("#myId").toggle();
+});
+$("#readLess").click(function(){
+   $("#myId").toggle();
+});
+</script>

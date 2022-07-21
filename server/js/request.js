@@ -90,10 +90,10 @@ $(document).ready(function($) {
                $("#errorMSG").removeClass('alert alert-danger');
                $("#errorMSG").addClass('alert alert-success');
                $("#errorMSG").html(response.message);
-               console.log(response.message)
+               // console.log(response.message)
                setTimeout(function() {
                   location.reload();
-               }, 2000)
+               }, 1000)
             } else{
                $("#errorMSG").html("please check what you are doing");      
                console.log(response.message)             

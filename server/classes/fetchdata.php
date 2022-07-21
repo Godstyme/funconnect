@@ -19,8 +19,8 @@ class FetchData extends DbConnection {
       }   
    }
 
-   public function userLogin($email) {
-      $sql = "SELECT password,id FROM users WHERE email = :email ";
+   public function userLogin($email,) {
+      $sql = "SELECT password,id,username FROM users WHERE email = :email";
       $query = $this->connection->prepare($sql);
       $exec = $query->execute(array(':email'=>$email));
       if($query->errorCode() == 0){
@@ -28,8 +28,9 @@ class FetchData extends DbConnection {
             $data = $query->fetchAll(PDO::FETCH_ASSOC);
             foreach ($data as $row) {
                $id = $row['id'];
+               $username = $row['username'];
                $pass = $row['password'];
-               return array('status'=>1,'password'=>$pass, 'id'=>$id, 'email'=>$email);
+               return array('status'=>1,'password'=>$pass, 'id'=>$id, 'email'=>$email,'username'=>$username);
             }
          }else{
             return array('status'=>0,'message' => 'User Does not exist');
@@ -57,27 +58,33 @@ class FetchData extends DbConnection {
 }
 
 
-public function getUserUsername(){
-   $sql = "SELECT useremail FROM posts WHERE useremail = '{$_SESSION['email']}'";
-   $qry = $this->connection->prepare($sql);
-   $exec = $qry->execute(array());
+// public function getUserUsername(){
+//    $sql = "SELECT useremail FROM posts WHERE useremail = '{$_SESSION['email']}'";
+//    $qry = $this->connection->prepare($sql);
+//    $exec = $qry->execute(array());
 
-   if ($qry->errorCode() == 0) {
-      if ($qry->rowCount() > 0) {
-            $data = $qry->fetchAll(PDO::FETCH_ASSOC);
-            return array('status'=>1,'data'=>$data);
-      } else {
-            return 0;
-      }
-   } else {
-      return array('status' => 0, 'message' => $qry->errorInfo());
-   }
+//    if ($qry->errorCode() == 0) {
+//       if ($qry->rowCount() > 0) {
+//             $data = $qry->fetchAll(PDO::FETCH_ASSOC);
+//             return array('status'=>1,'data'=>$data);
+//       } else {
+//             return 0;
+//       }
+//    } else {
+//       return array('status' => 0, 'message' => $qry->errorInfo());
+//    }
+// }
+
+
 }
 
 
-}
-$data = new FetchData;
-// echo json_encode($data->getUserUsername());
+
+
+
+
+// $data = new FetchData;
+// echo json_encode($data->userLogin('godstimeonyibe4@gmail.com'));
 
 
 

@@ -2,7 +2,7 @@
  session_start();
  require_once 'config/config.php';
 //  if (empty(($_SESSION['email'])) && $_SESSION['id']  == null || !isset($_SESSION['email'])) {
-	if (!isset($_SESSION['email']) && !isset($_SESSION['id'])) {
+	if (!isset($_SESSION['email']) && !isset($_SESSION['id']) && !isset($_SESSION['username'])) {
 		echo '
 		<script>
 			window.location = "logout.php";
@@ -24,8 +24,8 @@
 
 	if ($page == "home" || $page == ""):
 		$currentPage = "home";      
-	elseif ($page == "about"):
-		$currentPage = "about";
+	elseif ($page == "profile"):
+		$currentPage = "profile";
 		
 	else:
 		$currentPage = "error";
@@ -67,7 +67,7 @@
 					<a href="" class="navbar-brand brand fw-bolder fs-3 h1">FUNCONNECT</a>
 				</span>
 				<span class="d-none d-sm-inline mx-1">
-					<?php echo "<div class='text-white text-center'>".$_SESSION['email']."</div>";?>
+					<?php echo "<div class='text-white text-center'>".$_SESSION['username']."</div>";?>
 				</span>
 										<a href="logout.php">Logout</a>
 			  	<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvasLg" aria-controls="navbarOffcanvasLg">
@@ -106,7 +106,7 @@
 						</ul>
 						<div class="py-2">
 							<div class="text-center profile">
-								<a href=""><img src="assets/imgs/dp.png" alt="user" class="rounded-circle  mx-auto d-block img-fluid"></a>
+								<a href="<?php echo SITEURL ?>profile"><img src="assets/imgs/dp.png" alt="user" class="rounded-circle  mx-auto d-block img-fluid"></a>
 							</div>
 						</div>
 					</div>

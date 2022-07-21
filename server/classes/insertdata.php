@@ -16,11 +16,11 @@ class InsertData extends DbConnection {
         } 
     }
 
-    public function setPost($userid,$useremail,$post_content_text,$postimage,$time,$date) {
-        $sql = "INSERT INTO posts(userid,useremail,post_content_text,postimage,time,date) VALUES(:userid,:useremail,:post_content_text,:postimage,:time,:date)";
+    public function setPost($userid,$email,$post_content_text,$postimage,$time,$date) {
+        $sql = "INSERT INTO posts(userid,email,post_content_text,postimage,time,date) VALUES(:userid,:email,:post_content_text,:postimage,:time,:date)";
   
         $query = $this->connection->prepare($sql);
-        $exec = $query->execute([':userid'=>$userid, ':useremail'=>$useremail, ':post_content_text'=>$post_content_text, ':postimage'=>$postimage, ':time'=>$time,  ':date'=>$date ]);
+        $exec = $query->execute([':userid'=>$userid, ':email'=>$email, ':post_content_text'=>$post_content_text, ':postimage'=>$postimage, ':time'=>$time,  ':date'=>$date ]);
         
         if ($query->errorCode() == 0) {
             return array('status'=>1);
